@@ -18,16 +18,18 @@ Route::get('/', function () {
 
 });
 
-Route::get('/about', function () {
-    return "About Us";
-});
+//Route::get('/about', function () {
+//    return "About Us";
+//});
+//
+//Route::get('/post/{id}/{name}', function ($id, $name) {
+//    return "This is POST number " . $id . " " . $name;
+//
+//});
+//
+//Route::get('admin/posts/example', array('as' => 'admin.home', function () {
+//    $url = \route('admin.home');
+//    return "This URL is " . $url;
+//}));
 
-Route::get('/post/{id}/{name}', function ($id, $name) {
-    return "This is POST number " . $id . " " . $name;
-
-});
-
-Route::get('admin/posts/example', array('as' => 'admin.home', function () {
-    $url = \route('admin.home');
-    return "This URL is " . $url;
-}));
+Route::resource('posts', 'PostController');
