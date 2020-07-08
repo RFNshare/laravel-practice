@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 
 });
+Route::get('/contact','PostController@contact');
+Route::get('post/{id}/{name}/{pass}', 'PostController@show_post');
 
 //Route::get('/about', function () {
 //    return "About Us";
@@ -32,4 +34,4 @@ Route::get('/', function () {
 //    return "This URL is " . $url;
 //}));
 
-Route::resource('posts', 'PostController');
+//Route::resource('posts', 'PostController');
