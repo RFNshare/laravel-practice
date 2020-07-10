@@ -63,15 +63,42 @@ Route::get('/read', function ()
 });
 
 Route::get('/insert', function () {
-    DB::insert('insert into posts (title, content) values(?, ? )', ['PHP with laravel', 'Amr name qwe']);
+    DB::insert('insert into posts (title, content) values(?, ? )', ['PHP with laravel', 'New Record']);
 });
 
+/*
+|--------------------------------------------------------------------------
+| ELOQUENT(Object relation Model) ORM
+|--------------------------------------------------------------------------
 
+*/
 
+Route::get('/find', function ()
+{
+   $posts = \App\Post::all();
 
+   foreach ($posts as $post)
+   {
+       return $post->title;
+   }
+});
 
+Route::get('/findd', function ()
+{
+    $post = \App\Post::find(2);
+    return $post->title;
 
+//    foreach ($posts as $post)
+//    {
+//        return $post->title;
+//    }
+});
 
+Route::get('/findwhere', function ()
+{
+    $posts  = \App\Post::where('id',3)->orderBy('id', 'desc')->take(1)->get();
+    return $posts;
+});
 
 
 
