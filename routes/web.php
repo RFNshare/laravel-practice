@@ -156,8 +156,16 @@ Route::get('/soft_delete', function ()
 
 });
 
+//Soft Delete Retrive
+Route::get('/return_soft_delete', function ()
+{
+//    $post = \App\Post::find(8);
+//    return $post;
 
+    $post = \App\Post::withTrashed()->where('id',1)->get();
+    return $post;
 
+});
 
 
 
