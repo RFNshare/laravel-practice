@@ -116,14 +116,37 @@ Route::get('/basic_update', function () {
 
     $post->save();
 });
+//insert using eloquent method with Model help
 
+Route::get('/create', function () {
+    \App\Post::create(['title' => 'Create Method', 'content' => 'Content with create method']);
 
+});
 
+//update using eloquent method with Model help
 
+Route::get('/update', function ()
+{
+    \App\Post::where('id',1)->where('is_admin',0)->update(['title' => 'Fundamental of Network Communications', 'content' => 'By Faul Dean with rubbish method']);
+});
 
+//delete using eloquent method with Model help
 
+Route::get('/delete', function ()
+{
+    $post = \App\Post::find(2);
 
+    $post->delete();
+});
 
+//delete using eloquent method with Model help 2
+
+Route::get('/deletee', function ()
+{
+    \App\Post::destroy([3,4]);
+
+//    \App\Post::where('id',3)->delete();
+});
 
 
 
