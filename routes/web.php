@@ -42,24 +42,20 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 
 */
-Route::get('delete', function ()
-{
-    $delete = DB::delete('delete from posts where id=?',[1]);
+Route::get('delete', function () {
+    $delete = DB::delete('delete from posts where id=?', [1]);
 });
 
-Route::get('/update', function ()
-{
-   DB::update('update posts set title = "Updated title" where id=?', [1]);
+Route::get('/update', function () {
+    DB::update('update posts set title = "Updated title" where id=?', [1]);
 });
 
-Route::get('/read', function ()
-{
-   $results = DB::select('select * from posts where id = ?', [1]);
+Route::get('/read', function () {
+    $results = DB::select('select * from posts where id = ?', [1]);
 
-   foreach ($results as $result)
-   {
-       return $result->title;
-   }
+    foreach ($results as $result) {
+        return $result->title;
+    }
 });
 
 Route::get('/insert', function () {
@@ -73,19 +69,16 @@ Route::get('/insert', function () {
 
 */
 
-Route::get('/find', function ()
-{
-   $posts = \App\Post::all();
+Route::get('/find', function () {
+    $posts = \App\Post::all();
 
-   foreach ($posts as $post)
-   {
-       return $post->title;
-   }
+    foreach ($posts as $post) {
+        return $post->title;
+    }
 });
 
-Route::get('/findd', function ()
-{
-    $post = \App\Post::find(2);
+Route::get('/findd', function () {
+    $post = \App\Post::find(3);
     return $post->title;
 
 //    foreach ($posts as $post)
@@ -94,12 +87,35 @@ Route::get('/findd', function ()
 //    }
 });
 
-Route::get('/findwhere', function ()
-{
-    $posts  = \App\Post::where('id',3)->orderBy('id', 'desc')->take(1)->get();
+Route::get('/findwhere', function () {
+    $posts = \App\Post::where('id', 3)->orderBy('id', 'desc')->take(1)->get();
     return $posts;
 });
 
+Route::get('/findmore', function () {
+    $posts = \App\Post::findorFail(2);
+    return $posts;
+});
+
+//insert using raw eloquent method
+Route::get('/basic_insert', function () {
+    $post = new \App\Post;
+
+    $post->title = 'New title';
+    $post->content = 'New Content';
+
+    $post->save();
+});
+
+//update using raw eloquent method
+Route::get('/basic_update', function () {
+    $post = \App\Post::find(2);
+
+    $post->title = 'New Title for ID number 2';
+    $post->content = 'New Content 2';
+
+    $post->save();
+});
 
 
 
