@@ -148,6 +148,13 @@ Route::get('/deletee', function ()
 //    \App\Post::where('id',3)->delete();
 });
 
+//Soft Delete with time
+Route::get('/soft_delete', function ()
+{
+    \App\Post::find(8)->delete();
+
+
+});
 
 
 
