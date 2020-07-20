@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Post;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -167,9 +169,18 @@ Route::get('/return_soft_delete', function ()
 
 });
 
+/*
+|--------------------------------------------------------------------------
+| ELOQUENT Database Relationships
+|--------------------------------------------------------------------------
 
+*/
 
+//hasOne or One to One Relationship
 
-
+Route::get('/user/{id}/post', function ($id)
+{
+    return User::find($id)->post;
+});
 
 
