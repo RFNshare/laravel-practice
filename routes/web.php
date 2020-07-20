@@ -127,15 +127,13 @@ Route::get('/create', function () {
 
 //update using eloquent method with Model help
 
-Route::get('/update', function ()
-{
-    \App\Post::where('id',1)->where('is_admin',0)->update(['title' => 'Fundamental of Network Communications', 'content' => 'By Faul Dean with rubbish method']);
+Route::get('/update', function () {
+    \App\Post::where('id', 1)->where('is_admin', 0)->update(['title' => 'Fundamental of Network Communications', 'content' => 'By Faul Dean with rubbish method']);
 });
 
 //delete using eloquent method with Model help
 
-Route::get('/delete', function ()
-{
+Route::get('/delete', function () {
     $post = \App\Post::find(2);
 
     $post->delete();
@@ -143,28 +141,25 @@ Route::get('/delete', function ()
 
 //delete using eloquent method with Model help 2
 
-Route::get('/deletee', function ()
-{
-    \App\Post::destroy([3,4]);
+Route::get('/deletee', function () {
+    \App\Post::destroy([3, 4]);
 
 //    \App\Post::where('id',3)->delete();
 });
 
 //Soft Delete with time
-Route::get('/soft_delete', function ()
-{
+Route::get('/soft_delete', function () {
     \App\Post::find(8)->delete();
 
 
 });
 
 //Soft Delete Retrive
-Route::get('/return_soft_delete', function ()
-{
+Route::get('/return_soft_delete', function () {
 //    $post = \App\Post::find(8);
 //    return $post;
 
-    $post = \App\Post::withTrashed()->where('id',1)->get();
+    $post = \App\Post::withTrashed()->where('id', 1)->get();
     return $post;
 
 });
@@ -178,9 +173,21 @@ Route::get('/return_soft_delete', function ()
 
 //hasOne or One to One Relationship
 
-Route::get('/user/{id}/post', function ($id)
-{
+Route::get('/user/{id}/post', function ($id) {
     return User::find($id)->post;
 });
 
+Route::get('post/{$id}/user', function ($id)
+{
+    return Post::find($id)->user;
+
+});
+
+//hasOne or One to Many Relationship
+
+//Route::get('/posts', function () {
+//    $user = User::find(1);
+//
+//    foreach ($user)
+//});
 
