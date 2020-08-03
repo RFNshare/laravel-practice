@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Post;
 use App\User;
+use App\Role;
+use App\Country;
 
 /*
 |--------------------------------------------------------------------------
@@ -194,3 +196,52 @@ Route::get('/posts', function () {
     }
 });
 
+//hasBelongsToMany or Many to Many Relationship
+
+Route::get('/user', function () {
+    $user = User::find(1);
+
+    foreach ($user->roles as $role)
+    {
+        return $role->name ."<br>";
+    }
+});
+
+//Reverse hasBelongsToMany or Many to Many Relationship
+
+Route::get('/user/pivot', function () {
+    $user = User::find(1);
+
+    foreach ($user->roles as $role)
+    {
+        return $role->pivot->created_at ."<br>";
+    }
+});
+
+//hasManyThrough Relationship(Accessing country from user table with country id)
+
+Route::get('/user/country', function () {
+    $country = Country::find(2);
+    foreach ($country->posts as $post)
+    {
+        return $post->title ."<br>";
+    }
+});
+
+//Polymorphic Relationship(user table<<-->>posts table have common foreign key in photo table)
+
+Route::get('/photo', function () {
+    $user = User::find(1);
+    foreach ($user->photos as $photo)
+    {
+        return $photo->path ."<br>";
+    }
+});
+
+Route::get('post/photo', function () {
+    $post = Post::find(1);
+    foreach ($post->photos as $photo)
+    {
+        return $photo->path ."<br>";
+    }
+});
