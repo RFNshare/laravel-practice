@@ -5,6 +5,10 @@ use App\Post;
 use App\User;
 use App\Role;
 use App\Country;
+use App\Photo;
+use App\Tag;
+use App\Taggable;
+use App\Video;
 
 /*
 |--------------------------------------------------------------------------
@@ -229,15 +233,15 @@ Route::get('/user/country', function () {
 });
 
 //Polymorphic Relationship(user table<<-->>posts table have common foreign key in photo table)
-
-Route::get('/photo', function () {
+//From User TABLE to access Photo
+Route::get('user/photo', function () {
     $user = User::find(1);
     foreach ($user->photos as $photo)
     {
         return $photo->path ."<br>";
     }
 });
-
+//From Post TABLE to access Photo
 Route::get('post/photo', function () {
     $post = Post::find(1);
     foreach ($post->photos as $photo)
@@ -245,3 +249,50 @@ Route::get('post/photo', function () {
         return $photo->path ."<br>";
     }
 });
+
+//From Photo TABLE to access User
+
+Route::get('photo/user', function () {
+    $photo = Photo::findorFail(2);
+
+    $imageable = $photo -> imageable;
+
+    return $imageable->name;
+
+});
+
+//Polymorphic Relationship(Many to Many)
+
+//retrieve tag name for posts
+Route::get('post/tag', function () {
+    $post = Post::find(2);
+    foreach ($post->tags as $tag)
+    {
+        return $tag->name ."<br>";
+    }
+
+});
+
+//retrieve post title for tag
+Route::get('tag/post', function () {
+    $tag = Tag::find(2);
+//    return $tag->posts;
+    foreach ($tag->posts as $post)
+    {
+        return $post->title ."<br>";
+    }
+
+});
+
+//retrieve video name form tag
+Route::get('tag/video', function () {
+    $tag = Tag::find(1);
+
+    foreach ($tag->videos as $video)
+    {
+        return $video->name ."<br>";
+    }
+
+});
+
+
