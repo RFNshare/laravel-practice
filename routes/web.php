@@ -8,7 +8,7 @@ use App\Country;
 use App\Photo;
 use App\Tag;
 use App\Taggable;
-use App\Video;
+use App\Address;
 
 /*
 |--------------------------------------------------------------------------
@@ -293,6 +293,15 @@ Route::get('tag/video', function () {
         return $video->name ."<br>";
     }
 
+});
+
+Route::get('/insert', function ()
+{
+    $user = User::findOrFail(1);
+
+    $address = new Address(['name'=>'75/4 East Maniknagar, Dhaka 1203']);
+
+    $user->address()->save($address);
 });
 
 
